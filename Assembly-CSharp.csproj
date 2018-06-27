@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\TODO.cs" />
      <Compile Include="Assets\Scripts\UIManager.cs" />
+     <Compile Include="Assets\Scripts\UIStore.cs" />
      <Compile Include="Assets\Scripts\gamemanager.cs" />
      <Compile Include="Assets\Scripts\store.cs" />
  <Reference Include="UnityEngine.UI">

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,7 +23,7 @@ public class UIManager : MonoBehaviour {
 		gamemanager.OnUpdateBalance += UpdateUI;
 	}
 
-	void OnDisable() {
+	void OnDisable () {
 		gamemanager.OnUpdateBalance -= UpdateUI;
 	}
 

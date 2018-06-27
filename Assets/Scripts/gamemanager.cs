@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,12 @@ public class gamemanager : MonoBehaviour {
 	public static event UpdateBalance OnUpdateBalance;
 	public static gamemanager instance;
 	double CurrentBalance;
+
+    void Awake () {
+		if (instance == null) {
+			instance = this;
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -24,16 +31,10 @@ public class gamemanager : MonoBehaviour {
 		
 	}
 
-	void Awake () {
-		if (instance == null) {
-			instance = this;
-		}
-	}
-
 	public void AddToBalance (double amt) {
 		CurrentBalance += amt;
 		if(OnUpdateBalance != null) {
-			OnUpdateBalance();
+			OnUpdateBalance ();
 		}	
 		//UIManager.instance.UpdateUI();
 	}

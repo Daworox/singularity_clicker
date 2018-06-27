@@ -1,23 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TODO : MonoBehaviour {
-
+﻿
 /*
- - change progress bar when certain speed is reached
+ - change progress bar visual when certain speed is reached
  - research visuals for progress bars
  - speed update number visibility (solved with large numbers extensions?)
+ - research number animations (like carousels etc.)
  - 
  */
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-}
