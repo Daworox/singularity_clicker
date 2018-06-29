@@ -7,15 +7,15 @@ using UnityEngine.UI;
 public class store : MonoBehaviour {
 
 	// Variables
-    public float CurrentTimer;
+    float CurrentTimer;
 	bool StartTimer;
-	public double NextStoreCost;
+	double NextStoreCost;
 
 	//public vars - define gameplay 
 	public int StoreCount;
 	public double BaseStoreCost;
 	public double BaseStoreProfit;
-	public float BaseStoreTimer;
+	float BaseStoreTimer;
 
 	public bool StoreUnlocked;
 	public bool ManagerUnlocked;
@@ -45,8 +45,9 @@ public class store : MonoBehaviour {
 	public void BuyStore () {
 			StoreCount += 1;
 			//Debug.Log("Purchased store " + StoreCount);
-			gamemanager.instance.AddToBalance(-NextStoreCost);
+			double Amt = -NextStoreCost;
 			NextStoreCost = (BaseStoreCost * Mathf.Pow(StoreMultiplier,StoreCount));
+			gamemanager.instance.AddToBalance(Amt);
 
 			// every x stores shorten the time of BaseStoreTimer
 			if(StoreCount % StoreTimerDivision == 0) {;
@@ -60,6 +61,18 @@ public class store : MonoBehaviour {
 		if (StartTimer == false && StoreCount > 0) {
 			StartTimer = true;
 		}
+	}
+
+	public float GetCurrentTimer () {
+		return CurrentTimer;
+	}
+
+	public float GetBaseStoreTimer () {
+		return BaseStoreTimer;
+	}
+
+	public double GetNextStoreCost () {
+		return NextStoreCost;
 	}
 
 }

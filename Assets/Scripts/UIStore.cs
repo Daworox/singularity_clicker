@@ -12,40 +12,46 @@ public class UIStore : MonoBehaviour {
 	public Slider ProgressSlider;
 	public store Store;
 
+	// Use this for initialization
+	void OnEnable() {
+		gamemanager.OnUpdateBalance += UpdateUI;
+	}
+
+	void OnDisable () {
+		gamemanager.OnUpdateBalance -= UpdateUI;
+	}
 	void Awake () {
 		Store = transform.GetComponent<store>();
 	}
-
-	// Use this for initialization
 	void Start () {
-		
+		StoreCountText.text = Store.StoreCount.ToString();
+		UpdateBuyButtonText();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		ProgressSlider.value = Store.CurrentTimer / Store.BaseStoreTimer;
-		UpdateUI ();
+		ProgressSlider.value = Store.GetCurrentTimer() / Store.GetBaseStoreTimer();
 	}
     
 	void UpdateBuyButtonText () {
-		BuyButtonText.text = "Buy $" + Store.NextStoreCost.ToString("n2");
+		BuyButtonText.text = "Buy $" + Store.GetNextStoreCost().ToString("n2");
 	}
 
 	public void UpdateUI () {
 		CanvasGroup cg = this.transform.GetComponent<CanvasGroup>();
 		// unlock a new store and enable interaction when having enough money
-		if (!Store.StoreUnlocked && !gamemanager.instance.CanBuy(Store.NextStoreCost)) {
+		if (!Store.StoreUnlocked && !gamemanager.instance.CanBuy(Store.GetNextStoreCost())) {
 			cg.interactable = false;
 			cg.alpha = 0;
 		} else {
-		if (!Store.StoreUnlocked && !gamemanager.instance.CanBuy(Store.NextStoreCost)) {
+		if (!Store.StoreUnlocked && !gamemanager.instance.CanBuy(Store.GetNextStoreCost())) {
 			Store.StoreUnlocked = true;
             cg.interactable = true;
 			cg.alpha = 1;
 		}
 
 		// disable the Buy button when not having enough money
-		if (gamemanager.instance.CanBuy(Store.NextStoreCost)) {
+		if (gamemanager.instance.CanBuy(Store.GetNextStoreCost())) {
 				BuyButton.interactable = true;
 			} else {
 				BuyButton.interactable = false;
@@ -54,13 +60,14 @@ public class UIStore : MonoBehaviour {
 	  }
 
 	 UpdateBuyButtonText();
-	 StoreCountText.text = Store.StoreCount.ToString();
-
+	
     }
 
 	public void BuyStoreOnClick () {
-		if (gamemanager.instance.CanBuy(Store.NextStoreCost)) {
+		if (gamemanager.instance.CanBuy(Store.GetNextStoreCost())) {
 			Store.BuyStore();
+			StoreCountText.text = Store.StoreCount.ToString();
+			UpdateUI();
 		}	
 	}
 
